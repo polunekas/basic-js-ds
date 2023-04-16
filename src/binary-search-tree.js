@@ -40,7 +40,7 @@ if (this.root === null) {
   
 
   has(/* data */) {
-    throw new NotImplementedError('Not implemented');
+   
     // remove line with error and write your code here
   }
 
@@ -50,17 +50,17 @@ if (this.root === null) {
   }
 
   remove(/* data */) {
-    throw new NotImplementedError('Not implemented');
+
     // remove line with error and write your code here
   }
 
   min() {
-    throw new NotImplementedError('Not implemented');
+
     // remove line with error and write your code here
   }
 
   max() {
-    throw new NotImplementedError('Not implemented');
+   
     // remove line with error and write your code here
   }
 }
