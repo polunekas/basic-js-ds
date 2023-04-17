@@ -7,61 +7,135 @@ const { NotImplementedError } = require('../extensions/index.js');
 * using Node from extensions
 */
 class BinarySearchTree {
-root=null
+res_root = null
+
   root() {
-    let result
-	result = this.root 
-	return result
-    // remove line with error and write your code here
+    return this.res_root
   }
 
-new_node(tree, add_node) {
- if (add_node.data < tree.data) {
-      if (tree.left !== null) {this.new_node(tree.left, add_node) } 
-	  else  tree.left = add_node;
-    } else if (add_node.data > tree.data) {
+  new_Node(tree, the_last_node) {
+    if (the_last_node.data < tree.data) {
+      if (tree.left !== null) {
+	  this.new_Node(tree.left, the_last_node)
+        
+      } else  tree.left = the_last_node
+
+    } else if (the_last_node.data > tree.data) {
       if (tree.right !== null) {
-       this.new_node(tree.right, add_node);
-      } else tree.right = add_node
+	  this.new_Node(tree.right, the_last_node)
+        
+      } else tree.right = the_last_node
+        
     }
-}
+  }
+  
+  find_data(tree, data) {
+    if (tree === null) {
+	return null
+	}
+    else if (tree.data === data) {
+	return tree
+	}
+    else if (tree.data > data) {
+	return this.find_data(tree.left, data)
+	}
+    else return this.find_data(tree.right, data)
+  }
+  
+    hasData(tree, data) {
+    if (tree === null) {
+	return false
+	}
+    else if (tree.data === data) 
+		{return true}
+    else if (tree.data > data) {
+	return this.hasData(tree.left, data)
+	}
+    else {
+	return this.hasData(tree.right, data)
+	}
+  }
+
+  remove_data(branch, tree, data, prevNode) {
+	let left_tr = tree.left
+    if (tree.data === data) {
+    
+      if (tree.left === null && tree.right !== null)
+        prevNode[branch] = tree.right
+      else if (tree.left !== null && tree.right === null){
+        prevNode[branch] = tree.left
+	  }
+	else if (tree.left === null && tree.right === null){
+        prevNode[branch] = null
+	}
+      else {
+        
+        prevNode[branch] = tree.right
+        this.new_Node(this.res_root, left_tr)
+      }
+    } else {
+      if (tree.data > data)
+        this.remove_data("left", tree.left, data, tree );
+      else this.remove_data("right", tree.right, data, tree);
+    }
+  }
+
+  minData(tree) {
+    
+    if (tree.left === null) {
+	return tree.data
+	}
+	else if (tree === null) {
+	return null
+	    }
+	else return this.minData(tree.left)
+  }
+
+ maxData(tree) {
+    
+    if (tree.right === null){ return tree.data
+	}
+	else if (tree === null){
+	 return null
+	}
+	else return this.maxData(tree.right)
+  }
 
   add(data) {
-let add_node = {data:data, left: null, right: null}
+    let the_last_node = {data: data, left: null, right: null};
 
-if (this.root === null) {
-      this.root = add_node;
-    } else {
-      this.new_node(this.root, add_node);
+    if (this.res_root !== null) {
+	this.new_Node(this.res_root, the_last_node);
+      
+    } else {this.res_root = the_last_node;
+      
     }
+  }
 
-}
-    // remove line with error and write your code here
-  
-
-  has(/* data */) {
-   
-    // remove line with error and write your code here
+  has(data) {
+  let result = this.hasData(this.res_root, data)
+    return result
   }
 
   find(data) {
-
-    // remove line with error and write your code here
+  let result = this.find_data(this.res_root, data)
+    return result
   }
 
-  remove(/* data */) {
+  remove(data) {
+    let result 
+	result = this.remove_data("res_root", this.res_root, data, this )
 
-    // remove line with error and write your code here
   }
 
   min() {
-
-    // remove line with error and write your code here
+    return this.minData(this.res_root)
   }
 
   max() {
-   
-    // remove line with error and write your code here
+  let result 
+  result = this.maxData(this.res_root)
+    return result
   }
 }
 
